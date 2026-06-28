@@ -1,0 +1,16 @@
+THIS IS A PLACEHOLDER — REPLACE BEFORE FINAL SUBMISSION
+=========================================================
+
+Replace this file with your group's actual presentation PDF.
+
+File name:  presentation.pdf  (keep this exact name)
+Format:     PDF
+Content:    Slide deck used for the group presentation
+            (PowerPoint exported to PDF, LaTeX Beamer, Google Slides, etc.)
+
+How to replace:
+  1. Delete this file
+  2. Copy your real PDF here with the name "presentation.pdf"
+  3. git add presentation.pdf
+  4. git commit -m "add final presentation PDF"
+  5. git push origin main
