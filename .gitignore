@@ -17,7 +17,6 @@ notebook_executed.ipynb
 
 # Data files (add explicit exceptions for small files you WANT tracked)
 # e.g.:  !data/my_small_sample.csv
-data/*.csv
 data/*.parquet
 data/*.xlsx
 data/*.h5
