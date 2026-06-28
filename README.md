@@ -1,139 +1,59 @@
-# [Project Title]
+# Does the Undercut Pay Off? — DAI Mission, Group K
 
-![Notebook CI](https://github.com/<YOUR_GITHUB_USERNAME>/<YOUR_REPO_NAME>/actions/workflows/run-notebook.yml/badge.svg)
+![CI](https://github.com/<YOUR-GITHUB-USER>/dai-mission-group-k/actions/workflows/run-notebook.yml/badge.svg)
 
-> **Before submitting:** replace `<YOUR_GITHUB_USERNAME>/<YOUR_REPO_NAME>` in the badge URL above
-> with your actual GitHub owner and repository name.
+**Data & AI in Economics — TU Dortmund**
 
----
+| Member | Role |
+|---|---|
+| Munish Patwa | Causal Inference Lead |
+| Simran Arora | Supervised Learning |
+| Nimesh Bhavsar | Unsupervised / Generative |
 
-## Team
+## Research question
 
-| Name | Role |
-|------|------|
-| Firstname Lastname | Lead / Causal Inference |
-| Firstname Lastname | Supervised Learning |
-| Firstname Lastname *(optional)* | Unsupervised / Generative |
+> How do pit-stop strategies shape race performance in Formula 1 — and does an early first pit stop
+> (before 40% of the race) *causally* improve a driver's net position gain relative to grid, after
+> accounting for car quality, starting position, and track conditions?
 
-> No student IDs in this file. Submit IDs separately via the course system (Moodle).
+## Repository structure
 
----
+```
+.github/workflows/   CI: re-executes the notebook on every push to main
+data/                f1_strategy_v4.csv (96,336 laps, 2022–2025, OpenF1-enriched)
+notebook.ipynb       Full mission notebook (fully executed)
+requirements.txt     Python dependencies
+```
 
-## Research Question
+The notebook follows the official template order:
+**§1 Research Question & Data → §2 Causal Inference → §3 Supervised Learning → §4 Unsupervised → §5 Synthesis → References.**
 
-*One sentence: what causal or predictive question are you answering, and with what data?*
+## Headline results
 
----
+- **Causal:** blanket early pitting does **not** improve finishing position (ATE ≈ −0.32; strengthening
+  to −0.53 with DNF exclusion + constructor fixed effects). Effect is robust in direction across
+  treatment thresholds; race-clustered SEs reported alongside classical ones.
+- **Optimal window:** confounder-adjusted position gain peaks in the **30–50%** race-distance window
+  (inverted-U); pitting before ~30% destroys value.
+- **Supervised:** net position gain is dominated by grid slot and car quality — strategy features do not
+  beat a grid-only baseline (RMSE ≈ 3.3). Pit *decisions* are highly predictable (mechanism AUC ≈ 0.96).
+- **Unsupervised:** stints form two interpretable archetypes (early-MEDIUM vs long-HARD), but the
+  strategy space is genuinely continuous (silhouette ≈ 0.29).
 
-## Methods Overview
-
-| Block | Method(s) |
-|-------|-----------|
-| Causal Inference | DoWhy — [backdoor / IV / propensity score] |
-| Supervised Learning | [e.g., Ridge regression, Random Forest, …] |
-| Unsupervised / Generative | [e.g., K-Means, VAE, Hierarchical clustering, …] |
-
----
-
-## Data Sources
-
-| Dataset | Source / URL | Access method |
-|---------|-------------|---------------|
-| | | local file / API / sklearn built-in / runtime download / Sciebo link |
-
-> **Data size rule:** files < 100 MB may be committed directly. Files ≥ 100 MB must either
-> be downloaded programmatically in the notebook (API/URL) or linked via a Sciebo share
-> placed in this README — do NOT push large files to GitHub.
-
----
-
-## How to Run
-
-### Option A — GitHub Actions (zero local setup)
-
-Push to `main`. The CI workflow executes `notebook.ipynb` automatically.
-
-- Check the **Actions** tab to see whether the run passed or failed.
-- Download the `executed-notebook-*` artifact to inspect all cell outputs.
-- The badge at the top of this README turns green when the notebook runs clean.
-
-### Option B — Local environment
+## How to run
 
 ```bash
-# Clone your repo (not this template)
-git clone https://github.com/<YOUR_GITHUB_USERNAME>/<YOUR_REPO_NAME>.git
-cd <YOUR_REPO_NAME>
-
-python -m venv .venv
-source .venv/bin/activate        # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
-jupyter lab notebook.ipynb
+jupyter nbconvert --to notebook --execute --inplace notebook.ipynb
 ```
 
----
+Runtime ≈ 5–10 minutes (DoWhy refutation simulations dominate). The CI workflow runs exactly this on
+every push to `main`.
 
-## Presentation Slide Requirements
+## Data & integrity
 
-| Item | Rule |
-|------|------|
-| Content slides | **Maximum 5** |
-| Allowed extras | Title page · Literature/Reference slide · Backup slides |
-| Backup slide content | Tables or figures/diagrams **only** |
-| Required topics | Motivation & Economic Relevance · Data & Methodology · Results · Limitations & Synthesis |
-| File format | **PDF only** — do not submit PPTX |
-| Delivery | No live presentation — slides are reviewed during the oral exam |
-
----
-
-## Oral Exam
-
-- **Format:** 15-minute Q&A per group — questions on your Proposal and Presentation slides
-- **Individual accountability:** each member answers questions on their own area (see Work Plan in notebook)
-- **Rooms:** Morning sessions → M811 · Afternoon sessions → M827 · Arrive 10 minutes early
-- **Grading:** oral performance directly modifies your Mission base score; significant individual
-  discrepancies lead to differentiated individual grades
-
----
-
-## Key Deadlines
-
-| Date | Time | What |
-|------|------|------|
-| June 18 | 12:00 noon | Rank your session slots in Moodle (group lead) |
-| June 30 | 12:00 noon | Submit repository link to Moodle (exactly one member per group) |
-| June 30 | 23:59 | Final code deadline — commits after this are not graded |
-
-> **Private repositories:** if your repo is private you MUST invite `pnposch` and
-> `kiraschoenhuette` as collaborators before the deadline so the teaching team can clone it.
-
----
-
-## Submission Checklist
-
-| Item | Status |
-|------|--------|
-| Repo named `dai-mission-group-X` (replace X with your group letter) | [ ] |
-| README updated (title, team, badge URL, research question, data sources) | [ ] |
-| Work Plan filled in (`notebook.ipynb` — team member → section mapping) | [ ] |
-| All rubric sections complete (§1–§5) | [ ] |
-| Notebook submitted in **fully executed state** (all cell outputs visible) | [ ] |
-| Notebook re-executes cleanly (CI badge green) | [ ] |
-| `presentation.pdf` replaced with actual PDF (PDF only, no PPTX) | [ ] |
-| Large data files (≥ 100 MB) not committed — downloaded or Sciebo-linked instead | [ ] |
-| Custom `.py` modules included (if any) | [ ] |
-| Private repo: `pnposch` + `kiraschoenhuette` added as collaborators | [ ] if private |
-| Repository link submitted to Moodle by **June 30, 12:00 noon** | [ ] |
-
----
-
-## Repository Structure
-
-```
-.
-├── .github/workflows/run-notebook.yml   # CI: validates and executes notebook on every push
-├── data/                                # local data files (see data/README.md)
-├── notebook.ipynb                       # main deliverable — proposal + final submission (submit fully executed)
-├── presentation.pdf                     # slide deck — PDF only, max 5 content slides
-├── README.md                            # this file
-└── requirements.txt                     # Python dependencies (required)
-```
+- Data: F1 lap-by-lap timing (2022–2025) enriched via the [OpenF1 API](https://openf1.org) (open data).
+  The CSV (~30 MB) is committed under `data/`.
+- LLM assistance (Claude / GitHub Copilot) was used for structuring, debugging, and drafting narrative;
+  all analytical decisions, interpretations, and conclusions are the team's own work (disclosed in the
+  notebook header).
