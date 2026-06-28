@@ -1,18 +1,7 @@
-# Core scientific stack
-numpy>=2.1.0,<3
-pandas>=2.2.0,<3
-matplotlib>=3.8.0,<4
-scikit-learn>=1.4.0,<2
-scipy>=1.12.0,<2
-seaborn>=0.13.0,<0.14
-
-# Causal inference
-dowhy>=0.11.1
-
-# Graph drawing (DAG visualisation without graphviz system dependency)
-networkx>=3.3
-
-# Notebook execution
-jupyter>=1.1.0
-nbconvert>=7.16.0
-ipykernel>=6.29.0
+pandas
+numpy
+matplotlib
+seaborn
+scikit-learn
+statsmodels
+dowhy
